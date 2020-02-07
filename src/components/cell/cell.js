@@ -4,7 +4,9 @@ import './cell.css';
 function Cell() {
 
     return(
-        
+        <div>
+            
+        </div>
     )
 }
 
