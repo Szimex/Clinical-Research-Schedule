@@ -1,29 +1,28 @@
 import React from 'react';
-import './table.css';
+import './calendarPage.css';
 
-function Table() {
+function CalendarPage() {
     const monthName = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
     const actualDate = new Date();
     const actualYear = actualDate.getFullYear();
     const actualMonth = actualDate.getMonth();
-    const actualMonthName = monthName[actualMonth];
-    let selectedYear = actualYear;
-    let selectedMonth = actualMonthName;
-    const toggleMonth = () => actualDate.setDate(1);
-    toggleMonth();
-    const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
-    daysInMonth(2, 2020);
-    let firstDay = actualDate.getDay() -1;
-    const tableCells = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
 
+    let selectedYear = 2020;
+    let selectedMonth = 2;
+    let selectedMonthcount = selectedMonth + 1;
+
+    const lastDayOfMounth = (month, year) => new Date(year, month, 0).getDate();
+    const firstDayOfMounth = new Date(selectedYear, selectedMonth, 1).getDay();
+    const daySwitch = (day) => day === 0 ? 6 : day -1; //offset of the days of the month from the week days table and handling sunday the first cases
+    const tableCells = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
+   
     function tableSetter() {
         for(let i = 0; i < 42; i++) {
-            tableCells[i] -= firstDay;
-        
+            tableCells[i] -= daySwitch(firstDayOfMounth);
             if (tableCells[i] < 1) {    
                 tableCells[i] = null
             }
-            if (tableCells[i] > daysInMonth(2, 2020)) {
+            if (tableCells[i] > lastDayOfMounth(selectedMonthcount, selectedYear)) {
                 tableCells[i] = null
             }
         }
@@ -33,18 +32,18 @@ function Table() {
         <table>
             <thead>
                 <tr className="table_head">
-                    <td>{selectedMonth + " " + selectedYear}</td>
+                    <th colSpan='7'>{monthName[selectedMonth] + " " + selectedYear}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Pon</td>
-                    <td>Wt</td>
-                    <td>Śr</td>
-                    <td>Czw</td>
-                    <td>Pt</td>
-                    <td>So</td>
-                    <td>Nd</td>
+                    <th>Pon</th>
+                    <th>Wt</th>
+                    <th>Śr</th>
+                    <th>Czw</th>
+                    <th>Pt</th>
+                    <th>So</th>
+                    <th>Nd</th>
                 </tr>
                 <tr>
                     <td>{tableCells[0]}</td>
@@ -108,4 +107,4 @@ function Table() {
     )
 }
 
-export default Table
+export default CalendarPage

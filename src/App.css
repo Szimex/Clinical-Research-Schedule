@@ -1,3 +1,16 @@
 .App {
   text-align: center;
 }
+.today {
+  margin: 20px; 
+}
+.center_content {
+  display: flex;
+  flex-direction: row;
+}
+.calendar_page{
+  margin-left: 30px;
+}
+.planner_section {
+  margin-left: 30px;
+}
